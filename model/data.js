@@ -1,6 +1,8 @@
 let arr=[{id:1,
-    name:"Shashank",
-    desination:"trainee"
+        email:"shashank@gmail.com",
+        name:"Shashank",
+        password:"password.1@",
+        desination:"trainee"
     }]
 
 module.exports=arr

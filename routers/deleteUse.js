@@ -10,12 +10,12 @@ let arr=require("../model/data")
 route.delete('/:id',(req,res)=>{
     let id=Number(req.params.id);
     let data=req.body;
-    console.log
-    arr.forEach((Element)=>{
-        if(Element.id==id)
+    for(let i=0;i<arr.length;i++){
+        if(arr[i].id==id)
         {
-            console.log(Element+" "+data[id])
+            arr.splice(i,1);
         }
-    })
+    }
+    res.status(200).send("User Deleted")
 })
 module.exports=route
