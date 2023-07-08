@@ -1,7 +1,6 @@
 const fs=require("fs")
 
 //constants
-let fileExits=false;
 let file1Exits=false,file2Exist=false;
 let fileName=`./backup/TextFile_${Date.now()}.txt`;
 
@@ -14,7 +13,7 @@ exports.postRequest=async (req,res)=>{
     await fileExist(file1,file2).then((e)=>{
         check=e;
     }).catch((error)=>{
-        res.send("File Not found")
+        res.send("File Not found "+error)
     })
        
        if(check)
@@ -78,32 +77,26 @@ function merge2(file2)
             })
             
         })
+        fs.unlink(`./uploads/${file2}`,(err)=>{
+            if(err) reject("Error generted")
+        })
         resolve()
     })
 }
-function merge1(file2)
+function merge1(file1)
 {
 
     return new Promise((resolve,reject)=>{
-        fs.readFile(`./uploads/${file2}`,"utf8",(err,data) => {
-            if(err)
-            {
+        fs.readFile(`./uploads/${file1}`,"utf8",(err,data) => {
+            if(err){
                 reject("Error in file reading")
             }
-            if(!fileExits)
-            {
-                fileExits=true;
                 fs.writeFile(fileName,data,(error)=>{
                     if(err) throw err;
                 })
-            }
-            else
-            {
-                fs.appendFile(fileName,data,(error)=>{
-                    if(err) throw err;
-
-                })
-            }
+        })
+        fs.unlink(`./uploads/${file1}`,(err)=>{
+            if(err) reject("Error generted")
         })
         resolve()
     })
