@@ -15,7 +15,6 @@ exports.postRequest=async (req,res)=>{
     }).catch((error)=>{
         res.send("File Not found "+error)
     })
-       
        if(check)
        {
         await merge1(file1).then().catch((error)=>{
