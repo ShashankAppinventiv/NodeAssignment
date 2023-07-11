@@ -1,1 +1,1 @@
-Contain All git projects in different branches
+contain all sql assignment
