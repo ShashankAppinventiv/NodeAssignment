@@ -1,1 +1,1 @@
-Contain All Assessment based projects in different branches
+contain CURD operation with sql
