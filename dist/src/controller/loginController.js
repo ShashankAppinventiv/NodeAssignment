@@ -22,7 +22,7 @@ function createTable(req) {
             yield database_1.default.sync(); // Use { force: true } to drop the table if it already exists
             yield user_1.User.create({
                 name: req.body.name,
-                email: req.body.name
+                email: req.body.email
             });
             console.log('Table created successfully!');
         }
