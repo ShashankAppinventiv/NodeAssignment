@@ -15,14 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = void 0;
 const user_1 = require("../model/user");
 const database_1 = __importDefault(require("../database/database"));
-function createTable() {
+function createTable(req) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield database_1.default.authenticate();
             yield database_1.default.sync(); // Use { force: true } to drop the table if it already exists
             yield user_1.User.create({
-                name: 'Ashu',
-                email: 'Ashu@gmail.com'
+                name: req.body.name,
+                email: req.body.name
             });
             console.log('Table created successfully!');
         }
@@ -33,9 +33,8 @@ function createTable() {
 }
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(req.body);
         if (req.body != null) {
-            createTable();
+            createTable(req);
         }
         res.send("Login Successfully");
     }

@@ -1,14 +1,15 @@
 import { User } from '../model/user';
 
 import sequelize from '../database/database';
+import { Request , Response} from 'express';
 
-async function createTable() {
+async function createTable(req:Request) {
   try {
     await sequelize.authenticate();
     await sequelize.sync(); // Use { force: true } to drop the table if it already exists
     await User.create({
-      name: 'Ashu',
-      email: 'Ashu@gmail.com'
+      name: req.body.name,
+      email: req.body.email
     });
     console.log('Table created successfully!');
   } catch (error) {
@@ -16,9 +17,10 @@ async function createTable() {
   }
 }
 
-export const login=async(req:Request, res:any) => {
+export const login=async (req:Request, res:Response) => {
     try {
-      createTable();
+      if(req.body!=null){
+      createTable(req);}
       res.send("Login Successfully")
     } catch (error) {
       console.error(error);

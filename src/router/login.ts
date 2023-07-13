@@ -7,6 +7,6 @@ import {login} from '../controller/loginController'
 
 
 // Fetch all users
-router.post('/', login)
+router.post('/login', login)
 
 export default router;

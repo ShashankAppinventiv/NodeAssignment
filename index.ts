@@ -2,9 +2,10 @@ import express from 'express'
 
 
 //router
-import login from './router/login'
+import login from './src/router/login'
+import exp from 'constants';
 const app = express();
-
+app.use(express.json())
 // Adding routes here
 app.use('/users',login);
 
