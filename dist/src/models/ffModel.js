@@ -12,7 +12,14 @@ const list_ff = databse_1.default.define('list', {
     },
     receiver: {
         type: sequelize_typescript_1.DataType.INTEGER
-    }
+    },
+    // userId:{
+    //     type:DataType.INTEGER,
+    //     references:{
+    //         model:loginSchema,
+    //         key :'id'
+    //     }
+    // }
 }, {});
 list_ff.belongsTo(user_1.loginSchema);
 exports.default = list_ff;

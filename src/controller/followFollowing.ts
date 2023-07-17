@@ -17,27 +17,8 @@ export const followerController=async (req:Request,res:Response)=>{
                     sender:req.body.sender,
                     receiver:req.body.receiver
                 })
-                let data2:any
-                // try{
-                //     loginSchema.findAll({
-                //         attributes: [[sequelize.literal('JSON_OBJECT(\'id\', name, \'email\', followerCount)'), 'json_data']],
-                //       })
-                //         .then((results) => {
-                //           // Access the JSON data
-                //           const jsonData = results.map((result) => result.dataValues.json_data);
-                      
-                //           // Do something with the JSON data
-                //           console.log(jsonData);
-                //         })
-                //         .catch((error) => {
-                //           console.error('Error retrieving data:', error);
-                //         });
-                // }catch(err){
-                //     console.log("Error aagye hai yha")
-                // }
-                // console.log(data);
                 }else{
-                    res.send("Ypu are already following this person")
+                    res.send("You are already following this person")
                 }
                 res.send("You are following this person")
             }catch(err)

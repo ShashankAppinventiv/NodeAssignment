@@ -8,7 +8,14 @@ const list_ff=sequelize.define('list',{
     },
     receiver:{
         type:DataType.INTEGER
-    }
+    },
+    // userId:{
+    //     type:DataType.INTEGER,
+    //     references:{
+    //         model:loginSchema,
+    //         key :'id'
+    //     }
+    // }
 },{
 
 })
