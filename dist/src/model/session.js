@@ -26,8 +26,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.sessionModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const sessionSchema = new mongoose_1.default.Schema({
-    UserId: { type: mongoose_1.Schema.Types.ObjectId, ref: 'users' },
-    Token: String,
-    expire_date: Date
+    userId: { type: mongoose_1.Schema.Types.ObjectId, ref: 'users' },
+    isActive: Boolean,
+    loginAt: Date
 });
 exports.sessionModel = mongoose_1.default.model('session', sessionSchema);

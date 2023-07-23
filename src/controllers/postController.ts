@@ -1,30 +1,32 @@
 import { post } from "../model/post";
 import {Request,Response} from "express";
-import { object } from "joi";
-import jwt from "jsonwebtoken";
-
-
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export const postController=(req:Request,res:Response)=>{
     const token=""+req.headers.authorization
     try{
-      let decoded:any = jwt.verify(token, 's1h2a3');
-      decoded=Object.values(decoded)[0];
+
+      //JWT Key Coding
+      let secretKey=""+process.env.SECRET_KEY
+      let decoded:any = jwt.verify(token, secretKey);
+      //Creating data that we want to insert into database
       let postData={
         usrId:decoded._id,
         postId:req.body.postId,
         caption:req.body.caption,
-        hashTags:[req.body.hashtag]
+        hashTags:req.body.hashtag
       }
       post.create(postData)
       .then((savedUser) => {
-      console.log('User saved:', savedUser);
+          res.send(postData)
       })
       .catch((error) => {
-      console.error('Error saving user:', error);
+          res.send(error)
       });
     }catch(err){
-      console.log("Error Data is Crupted")
+          res.send("Error,Data is Crupted")
     }
   
 }

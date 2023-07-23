@@ -2,15 +2,15 @@ import mongoose, { Schema } from 'mongoose';
 
 
 interface followFollowingDocument extends mongoose.Document {
-    UserId:mongoose.Types.ObjectId;
-    Token:String,
-    expire_date:Date;    
+    userId:mongoose.Types.ObjectId;
+    isActive:boolean
+    loginAt:Date;
   }
 
 const sessionSchema = new mongoose.Schema<followFollowingDocument>({
-    UserId: { type: Schema.Types.ObjectId, ref: 'users' },
-    Token:String,
-    expire_date:Date
+    userId: { type: Schema.Types.ObjectId, ref: 'users' },
+    isActive:Boolean,
+    loginAt:Date
   });
 
 
