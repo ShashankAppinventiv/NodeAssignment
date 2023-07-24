@@ -18,7 +18,7 @@ export const loginController=async(req:Request,res:Response,next:()=>void)=>{
         user={...JSON.parse(JSON.stringify(user))}
         let secretKey=""+process.env.SECRET_KEY
         req.headers.authorization = jwt.sign({_id:user?._id},secretKey,{expiresIn:'1h'});
-        redisClient.set('${user?._id}','hello')
+        //redisClient.set('${user?._id}','hello')
         
         //Session creation if not exist
         let data=await sessionModel.find({

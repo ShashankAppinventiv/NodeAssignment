@@ -14,9 +14,7 @@ app.use(express_1.default.json());
 //Router
 const login_1 = __importDefault(require("./src/router/login"));
 const userSignUp_1 = __importDefault(require("./src/router/userSignUp"));
-const ffRoute_1 = __importDefault(require("./src/router/ffRoute"));
 const postrout_1 = __importDefault(require("./src/router/postrout"));
-const action_1 = __importDefault(require("./src/router/action"));
 const logout_1 = __importDefault(require("./src/router/logout"));
 // for parsing application/x-www-form-urlencoded
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -46,9 +44,7 @@ app.get('/hello', (req, res) => {
 app.use('/api-doc', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDoc));
 app.use('/auth', login_1.default);
 app.use('/auth', userSignUp_1.default);
-app.use('/activity', ffRoute_1.default);
 app.use('/activity', postrout_1.default);
-app.use('/activity', action_1.default);
 app.use('/auth', logout_1.default);
 // Start the server
 app.listen(3000, () => {
