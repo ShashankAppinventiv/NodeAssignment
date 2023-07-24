@@ -12,11 +12,6 @@ export const sessionCheck=async (req:Request,res:Response,next:()=>void)=>{
   let decode:any;
   try{ 
         decode= jwt.verify(token,secretKey)
-    }catch(err)
-    {
-        res.send("token Expire or not valid")
-    }
-    try{
         let redisData=await redisclient.get(`${decode?._id}`)
         if(!(redisData==="true")){
             console.log("cache miss")
@@ -24,12 +19,18 @@ export const sessionCheck=async (req:Request,res:Response,next:()=>void)=>{
             userId:decode._id,
             isActive:true,
         })
-        data.length>0?next():res.send("Authentication error")
+            if(data.length>0)
+            {
+              redisclient.setEx(`${decode?._id}`,3600,"true")
+                next()
+            }else{
+                res.send("Authentication error")
+            }
         }else {
             console.log("cache hit")
             next()
         }
     }catch(err){
-    res.send("error")
+    res.status(400).send(err)
   }
 }

@@ -29,6 +29,7 @@ const loginController = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         else {
             user = Object.assign({}, JSON.parse(JSON.stringify(user)));
             let secretKey = "" + process.env.SECRET_KEY;
+            //token generation
             req.headers.authorization = jsonwebtoken_1.default.sign({ _id: user === null || user === void 0 ? void 0 : user._id }, secretKey, { expiresIn: '1h' });
             let redisData = yield redis_1.default.get(`${user === null || user === void 0 ? void 0 : user._id}`);
             if (!redisData) {

@@ -29,19 +29,6 @@ const swaggerOptions = {
     apis: ['./src/router/login.ts', './src/router/logout.ts']
 };
 const swaggerDoc = (0, swagger_jsdoc_1.default)(swaggerOptions);
-/**
- * @swagger
- * /hello:
- *   get:
- *     description: Get all Employee by Email
- *     responses:
- *       200:
- *         description: Success
- *
- */
-app.get('/hello', (req, res) => {
-    res.send("Hello");
-});
 app.use('/api-doc', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDoc));
 app.use('/auth', login_1.default);
 app.use('/auth', userSignUp_1.default);

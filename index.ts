@@ -29,19 +29,7 @@ const swaggerOptions={
 }
 
 const swaggerDoc=swaggerJsDoc(swaggerOptions)
-/** 
- * @swagger 
- * /hello:
- *   get: 
- *     description: Get all Employee by Email
- *     responses:  
- *       200: 
- *         description: Success  
- *   
- */ 
-app.get('/hello',(req,res)=>{
-  res.send("Hello")
-})
+
 app.use('/api-doc',swaggerUI.serve,swaggerUI.setup(swaggerDoc))
 app.use('/auth',loginRouter)
 

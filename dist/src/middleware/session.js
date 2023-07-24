@@ -26,20 +26,20 @@ const sessionCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     let decode;
     try {
         decode = jsonwebtoken_1.default.verify(token, secretKey);
-    }
-    catch (err) {
-        res.send("token Expire or not valid");
-    }
-    try {
         let redisData = yield redis_1.default.get(`${decode === null || decode === void 0 ? void 0 : decode._id}`);
-        console.log(redisData);
         if (!(redisData === "true")) {
             console.log("cache miss");
             let data = yield session_1.sessionModel.find({
                 userId: decode._id,
                 isActive: true,
             });
-            data.length > 0 ? next() : res.send("Authentication error");
+            if (data.length > 0) {
+                redis_1.default.setEx(`${decode === null || decode === void 0 ? void 0 : decode._id}`, 3600, "true");
+                next();
+            }
+            else {
+                res.send("Authentication error");
+            }
         }
         else {
             console.log("cache hit");
@@ -47,7 +47,7 @@ const sessionCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         }
     }
     catch (err) {
-        res.send("error");
+        res.status(400).send(err);
     }
 });
 exports.sessionCheck = sessionCheck;
