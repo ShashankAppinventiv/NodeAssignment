@@ -14,11 +14,6 @@ const loginController_1 = require("../controllers/loginController");
  * /auth/signin:
  *   post:
  *     description: Allow user to login
- *     parameters:
- *     - name: body
- *       description: name of the user
- *       required: true
- *       type: json
  *     responses:
  *       200:
  *         description: Success

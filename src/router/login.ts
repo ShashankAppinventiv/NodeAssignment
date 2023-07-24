@@ -13,12 +13,7 @@ import {loginController} from '../controllers/loginController'
  * @swagger 
  * /auth/signin:
  *   post: 
- *     description: Allow user to login
- *     parameters:
- *     - name: body
- *       description: name of the user
- *       required: true
- *       type: json 
+ *     description: Allow user to login 
  *     responses:  
  *       200: 
  *         description: Success  

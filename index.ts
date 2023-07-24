@@ -10,9 +10,7 @@ app.use(express.json())
 //Router
 import loginRouter from './src/router/login'
 import userRouter from './src/router/userSignUp'
-import followFolloing from './src/router/ffRoute'
 import post from './src/router/postrout'
-import action from './src/router/action'
 import logout from './src/router/logout'
 // for parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true })); 
@@ -46,9 +44,7 @@ app.use('/api-doc',swaggerUI.serve,swaggerUI.setup(swaggerDoc))
 app.use('/auth',loginRouter)
 
 app.use('/auth',userRouter);
-app.use('/activity',followFolloing);
 app.use('/activity',post);
-app.use('/activity',action)
 app.use('/auth',logout)
 // Start the server
 app.listen(3000, () => {
