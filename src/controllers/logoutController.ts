@@ -1,6 +1,7 @@
 import { Request,Response } from "express"
 import {sessionModel} from '../model/session'
 import jwt from 'jsonwebtoken'
+import redisclient from '../provider/redis'
 import dotenv from 'dotenv'
 dotenv.config();
 
@@ -23,6 +24,7 @@ export const logoutController=async (req:Request,res:Response)=>{
           },{
             $set:{isActive:false}
             })
+            await redisclient.del(decode?._id);
             res.send("logout successfully")
         }catch(err){
             res.send("error")

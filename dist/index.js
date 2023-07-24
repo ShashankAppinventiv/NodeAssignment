@@ -8,6 +8,7 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 //database
 const database_1 = require("./src/provider/database");
+const redis_1 = require("./src/provider/redis");
 // Create an Express app
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -49,5 +50,6 @@ app.use('/auth', logout_1.default);
 // Start the server
 app.listen(3000, () => {
     (0, database_1.db)();
+    (0, redis_1.redFun)();
     console.log('Server started on port 3000');
 });

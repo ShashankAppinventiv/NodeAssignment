@@ -3,6 +3,8 @@ import swaggerUI from 'swagger-ui-express'
 import swaggerJsDoc from 'swagger-jsdoc'
 //database
 import {db} from './src/provider/database'
+import {redFun} from './src/provider/redis'
+
 
 // Create an Express app
 const app = express();
@@ -49,5 +51,6 @@ app.use('/auth',logout)
 // Start the server
 app.listen(3000, () => {
     db();
+    redFun()
   console.log('Server started on port 3000');
 });

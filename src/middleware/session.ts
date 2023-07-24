@@ -1,5 +1,6 @@
 import {sessionModel} from '../model/session'
 import { Request,Response } from 'express'
+import redisclient from '../provider/redis'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config();
@@ -16,11 +17,18 @@ export const sessionCheck=async (req:Request,res:Response,next:()=>void)=>{
         res.send("token Expire or not valid")
     }
     try{
+        let redisData=await redisclient.get(`${decode?._id}`)
+        if(!(redisData==="true")){
+            console.log("cache miss")
         let data=await sessionModel.find({
             userId:decode._id,
             isActive:true,
         })
         data.length>0?next():res.send("Authentication error")
+        }else {
+            console.log("cache hit")
+            next()
+        }
     }catch(err){
     res.send("error")
   }

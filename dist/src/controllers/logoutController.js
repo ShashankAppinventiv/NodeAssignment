@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.logoutController = void 0;
 const session_1 = require("../model/session");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const redis_1 = __importDefault(require("../provider/redis"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const logoutController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -36,6 +37,7 @@ const logoutController = (req, res) => __awaiter(void 0, void 0, void 0, functio
         }, {
             $set: { isActive: false }
         });
+        yield redis_1.default.del(decode === null || decode === void 0 ? void 0 : decode._id);
         res.send("logout successfully");
     }
     catch (err) {

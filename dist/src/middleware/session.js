@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sessionCheck = void 0;
 const session_1 = require("../model/session");
+const redis_1 = __importDefault(require("../provider/redis"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -30,11 +31,20 @@ const sessionCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         res.send("token Expire or not valid");
     }
     try {
-        let data = yield session_1.sessionModel.find({
-            userId: decode._id,
-            isActive: true,
-        });
-        data.length > 0 ? next() : res.send("Authentication error");
+        let redisData = yield redis_1.default.get(`${decode === null || decode === void 0 ? void 0 : decode._id}`);
+        console.log(redisData);
+        if (!(redisData === "true")) {
+            console.log("cache miss");
+            let data = yield session_1.sessionModel.find({
+                userId: decode._id,
+                isActive: true,
+            });
+            data.length > 0 ? next() : res.send("Authentication error");
+        }
+        else {
+            console.log("cache hit");
+            next();
+        }
     }
     catch (err) {
         res.send("error");
